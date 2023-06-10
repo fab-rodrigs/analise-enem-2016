@@ -7,6 +7,12 @@
 #define totalLinhas 8627367 // 8.6 milhoes
 #define tamanhoMaxLinha 10000 // 10 mil
 
+/*
+typedef struct dados{
+    int NU_INSCRICAO;
+    int NU_NOTA_COMP1;
+};*/
+
 int main()
 {
     setlocale(LC_ALL, ""); // Função para caracteres especiais
@@ -43,7 +49,7 @@ int main()
     */
   // ----------------- ------------- -----------------
 
-    char *token = strtok(linhas, ",");
+    //char *token = strtok(linhas, ",");
 
     //while (token != NULL) {
         //printf("%s\n", token);
@@ -52,16 +58,47 @@ int main()
 
     for(i=1; i<=50; i++){
         int indice = rand() % totalLinhas; // Gera indíces aleatórios entre 0 e 8.6 milhões
-        printf("\nIndice = %d", indice);
+        printf("\n\nIndice = %d", indice);
         while(j < indice){
             fgets(linhas[i], tamanhoMaxLinha, arquivo); // Busca indice
             j++;
         }
         fgets(linhas[i], tamanhoMaxLinha, arquivo); // Obtem linha do indice encontrado
+        //printf("\nEstudante %d: ", i);
         printf("\nEstudante %d: %s", i, linhas[i]);
 
-        //
+        char *dadosColunas = strtok(linhas[i], ","); // retorna um ponteiro para a primeira virgula (delimitador) encontrado na string)
+        int contadorColunas = 0;
 
+        while (dadosColunas != NULL) { // Percorre a linha
+
+            switch(contadorColunas){
+                case 107: // Caso esteja na coluna 107 (NU_NOTA_COMP1)
+                    printf("\n> NU_NOTA_COMP1 = %s", dadosColunas); // Imprime dado dessa coluna
+                    break;
+                case 108:
+                    printf("\n> NU_NOTA_COMP2 = %s", dadosColunas);
+                    break;
+                case 109:
+                    printf("\n> NU_NOTA_COMP3 = %s", dadosColunas);
+                    break;
+                case 110:
+                    printf("\n> NU_NOTA_COMP4 = %s", dadosColunas);
+                    break;
+                case 111:
+                    printf("\n> NU_NOTA_COMP5 = %s", dadosColunas);
+                    break;
+                case 112:
+                    printf("\n> NU_NOTA_REDACAO = %s", dadosColunas);
+                    break;
+            }
+
+            dadosColunas = strtok(NULL, ","); // obtém o próximo dado da string, avançando para o próximo delimitador (retorna NULL caso não encontre)
+            contadorColunas++; // incrementa contador de colunas
+        }
+
+        //
+        /*
         while (fgets(linhas[indice], tamanhoMaxLinha, arquivo) != NULL) {
         char *token = strtok(linhas, ",");
         int contadorColunas = 0;
@@ -75,7 +112,7 @@ int main()
             token = strtok(NULL, ",");
             contadorColunas++;
             }
-        }
+        }*/
     }
 
     // ----------------- EM CONSTRUÇÂO -----------------
